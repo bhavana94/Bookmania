@@ -6,7 +6,7 @@ from . serializer import BooksSerializer
 from rest_framework import generics
 
 
-@api_view(['GET','POST'])
+@api_view(['GET'])
 def BookList(request):
 	booklist = Books.objects.all()
 	query = request.GET.get('author_name')
@@ -21,13 +21,30 @@ def BookList(request):
 		serializer = BooksSerializer(
 			booklist.filter(author_name=author_obj), many=True)
 		return Response(serializer.data)
-	else:
+	elif query1:
+		cat_obj = Category.objects.get(category=query1)
 		serializer = BooksSerializer(
 			booklist.filter(categories=cat_obj), many=True)
+		return Response(serializer.data)
+	else:
+		serializer = BooksSerializer(booklist, many=True)
 		return Response(serializer.data)
 
 
 
+
+
+
+
+
+
+"""
+@api_view(['GET','POST'])
+def AllBookList(request):
+	books = Books.objects.all()
+	serializer = BooksSerializer(books,many=True)
+	return Response(serializer.data)
+"""	
 	
 
 
