@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from . serializer import BooksSerializer
 from rest_framework import generics, viewsets
 
-
+"""
 class BookList(APIView):
 
 	def get(self, request):
@@ -38,9 +38,9 @@ class BookList(APIView):
 
 
 """
-class BookList(viewsets.ModelViewSet):
+class BooksViewSet(viewsets.ModelViewSet):
 
-	model = Books
+	queryset = Books.objects.all()
 	serializer_class = BooksSerializer
 
 	def get_queryset(self, *args, **kwargs):	
@@ -60,7 +60,7 @@ class BookList(viewsets.ModelViewSet):
 			return queryset.filter(categories=cat_obj)	
 		else:
 			return queryset
-"""
+
 """
 	def create(self, *args, **kwargs):
 
