@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Category(models.Model):
 
-	category = models.CharField(max_length=200)
+	category = models.CharField(max_length=200, unique=True)
 
 	def __str__(self):
 		return '%s :'%(self.category)
@@ -15,7 +15,7 @@ class Category(models.Model):
 class Author(models.Model):
 
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	name = models.CharField(max_length=200)
+	name = models.CharField(max_length=200, unique=True)
 	email = models.EmailField()
 	
 	def __str__(self):
@@ -23,7 +23,7 @@ class Author(models.Model):
 
 class Books(models.Model):
 
-	title = models.CharField(max_length=200)
+	title = models.CharField(max_length=200, unique=True)
 	categories = models.ManyToManyField(Category)
 	author_name = models.ManyToManyField(Author)
 
